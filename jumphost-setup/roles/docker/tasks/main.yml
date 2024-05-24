@@ -1,0 +1,20 @@
+---
+- name: Clear DNF Cache
+  ansible.builtin.shell:
+    cmd: 'sudo rm -r /var/cache/dnf'
+
+- name: Add Docker Repository to DNF Config Manager
+  ansible.builtin.shell:
+    cmd: 'dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo'
+   # The commands specified in Docker documentations generate incorrect repository configurations.
+   # This shell command workaround uses the correct URL.
+
+- name: Install Docker
+  ansible.builtin.dnf:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+    state: present
+...

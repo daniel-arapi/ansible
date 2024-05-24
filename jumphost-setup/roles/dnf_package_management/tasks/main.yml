@@ -1,0 +1,16 @@
+---
+- name: Update DNF
+  ansible.builtin.dnf:
+    name: '*'
+    state: latest
+
+- name: Enable CRB Repository
+  community.general.dnf_config_manager:
+    name: crb
+    state: enabled
+
+- name: Install EPEL Community-Maintained Packages
+  ansible.builtin.dnf:
+    name: epel-release
+    state: present
+...

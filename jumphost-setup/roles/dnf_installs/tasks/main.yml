@@ -1,0 +1,15 @@
+---
+- name: Installing Packages via DNF
+  ansible.builtin.dnf:
+    name:
+      - 'gcc'
+      - 'https://dl.rockylinux.org/pub/rocky/9/devel/x86_64/os/Packages/g/gcc-toolset-12-build-12.0-6.el9.x86_64.rpm'
+      - 'openssl'
+      - 'dnsmasq'
+      - 'net-snmp'
+      - 'python3.11'
+      - 'python3.11-pip'
+      - 'python3.12'
+      - 'python3.12-pip'
+    state: present
+...

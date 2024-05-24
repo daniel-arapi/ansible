@@ -1,0 +1,10 @@
+---
+- name: Install PerfSonar RPM
+  ansible.builtin.shell:
+    cmd: 'dnf install http://software.internet2.edu/rpms/el9/x86_64/latest/packages/perfsonar-repo-0.11-1.noarch.rpm -y'
+
+- name: Install PerfSonar Toolkit
+  ansible.builtin.dnf:
+    name: perfsonar-toolkit
+    state: present
+...

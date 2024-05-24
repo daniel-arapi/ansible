@@ -1,0 +1,20 @@
+---
+- name: Create Directory /usr/bin/
+  ansible.builtin.file:
+    path: '/usr/bin/'
+    state: directory
+
+- name: Unarchive Python 3.10.14 Tar File into /usr/bin
+  ansible.builtin.unarchive:
+    src: 'https://www.python.org/ftp/python/3.10.14/Python-3.10.14.tar.xz'
+    dest: '/usr/bin/'
+    remote_src: yes
+
+- name: Configure Python 3.10.14
+  ansible.builtin.shell:
+    cmd:  'cd /usr/bin/Python-3.10.14/; ./configure --enable-optimizations'
+
+- name: Install Python 3.10.14 via Make
+  ansible.builtin.shell:
+    cmd: 'cd /usr/bin/Python-3.10.14/; make -j 2 ; nproc ; make altinstall ;'
+...

@@ -1,0 +1,22 @@
+---
+- name: NMS Deployment
+  gather_facts: True
+  hosts: all
+  roles:
+    - '../roles/dnf_package_management'
+    - '../roles/dnf_installs'
+    - '../roles/gcc_compiler'
+    - '../roles/perfsonar'
+    - '../roles/docker'
+    - '../roles/python_3.10.14'
+...
+
+
+
+
+
+
+
+
+
+
