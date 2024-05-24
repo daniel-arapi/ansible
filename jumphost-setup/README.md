@@ -1,7 +1,7 @@
 
 # Jumphost Server Setup
 
-Installs the following
+Uses Ansible to install the following:
 - CRB Repositories
 - EPEL Community-Maintained Packages
 - GCC Toolset
