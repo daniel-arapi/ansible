@@ -7,4 +7,30 @@
   ansible.builtin.dnf:
     name: perfsonar-toolkit
     state: present
+
+- name: Check if add_psadmin_pssudo.sh exists
+  stat:
+    path: /etc/profile.d/add_psadmin_pssudo.sh
+  register: stat_result
+
+- debug:
+    msg: "Confirmed that file 'add_psadmin_pssudo.sh' does exists."
+  when: stat_result.stat.exists
+
+- debug:
+    msg: "ATTENTION: File 'add_psadmin_pssudo.sh' does not exist!"
+  when: not stat_result.stat.exists
+
+- name: Comment all lines in file add_psadmin_pssudo.sh
+  ansible.builtin.replace:
+    path: /etc/profile.d/add_psadmin_pssudo.sh
+    regexp: '^(?!#)'
+    replace: '#'
+  when: stat_result.stat.exists
+
+# This task uses sed to perform the same function as above
+# The above version is preferred because it uses an Ansible module
+#- name: Comment all lines in file add_psadmin_pssudo.sh
+#  ansible.builtin.command: "sed -i '/^#/!s/^/#/' /etc/profile.d/test123.txt"
+#  when: stat_result.stat.exists
 ...
