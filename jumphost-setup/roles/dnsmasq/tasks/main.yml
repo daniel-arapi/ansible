@@ -1,0 +1,38 @@
+---
+- name: Check if ens123 file exists, otherwise create and configure
+  ansible.builtin.lineinfile:
+    path: /etc/NetworkManager/system-connections/ens123.nmconnection
+    line: 'dns=1.1.1.1;8.8.8.8;208.67.222.222;76.76.2.0;9.9.9.9;'
+    create: True
+    state: present
+
+#- name: Check if file ens123.nmconnection contains required DNS configurations
+#  shell: grep -c "dns=1.1.1.1;8.8.8.8;208.67.222.222;76.76.2.0;9.9.9.9;" /etc/NetworkManager/system-connections/ens123.nmconnection || true
+#  register: ens123_configs
+
+- name: Check if required DNS configurations are present for ens123
+  ansible.builtin.lineinfile:
+    state: absent
+    path: /etc/NetworkManager/system-connections/ens123.nmconnection
+    regexp: "^dns=1.1.1.1;8.8.8.8;208.67.222.222;76.76.2.0;9.9.9.9;"
+  check_mode: true
+  changed_when: false # This just makes things look prettier in the logs
+  register: check
+
+- name: Add DNS entry to file ens123
+  lineinfile:
+    state: present
+    path: /etc/NetworkManager/system-connections/ens123.nmconnection
+    line: "dns=1.1.1.1;8.8.8.8;208.67.222.222;76.76.2.0;9.9.9.9;"
+  when: check.found == 0
+
+- name: Send dnsmasq.conf template file to remote server
+  ansible.builtin.copy:
+    src: ../templates/dnsmasq.conf
+    dest: /etc/
+
+- name: Send dnsmasq.service template file to remote server
+  ansible.builtin.copy:
+    src: ../templates/dnsmasq.service
+    dest: /usr/lib/systemd/system
+...
