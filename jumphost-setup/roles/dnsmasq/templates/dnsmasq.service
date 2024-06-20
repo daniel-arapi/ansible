@@ -1,0 +1,12 @@
+[Unit]
+Description=DNS caching server.
+Before=systemd-resolved.service
+After=network.target
+
+[Service]
+ExecStart=/usr/sbin/dnsmasq
+Type=forking
+PIDFile=/run/dnsmasq.pid
+
+[Install]
+WantedBy=multi-user.target
