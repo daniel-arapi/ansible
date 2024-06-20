@@ -1,4 +1,9 @@
 ---
+- name: Send dnsmasq.conf template to remote server
+  ansible.builtin.copy:
+    src: ../templates/daemon.json
+    dest: /etc/docker/
+
 - name: Clear DNF Cache
   ansible.builtin.shell:
     cmd: 'sudo rm -r /var/cache/dnf'
