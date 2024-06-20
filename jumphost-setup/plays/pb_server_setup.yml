@@ -1,5 +1,5 @@
 ---
-- name: NMS Deployment
+- name: Jumphost Deployment
   gather_facts: True
   hosts: all
   roles:
@@ -9,8 +9,8 @@
     - '../roles/perfsonar'
     - '../roles/docker'
     - '../roles/python_3.10.14'
+    - '../roles/dnsmasq'
 ...
-
 
 
 
