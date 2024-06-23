@@ -1,20 +1,55 @@
 ---
-- name: Create Directory /usr/bin/
-  ansible.builtin.file:
-    path: '/usr/bin/'
-    state: directory
+- name: Installing Python 3.10.14 dependencies
+  ansible.builtin.dnf:
+    name:
+      - wget
+      - tk-devel
+      - xz-devel
+      - zlib-devel
+      - openssl-devel
+      - sqlite-devel
+      - libffi-devel
+      - readline-devel
+      - libnsl2
+      - libffi-devel
+      - bzip2-devel
+      - pip
+    state: present
+  tags: ["python31014"]
 
-- name: Unarchive Python 3.10.14 Tar File into /usr/bin
+- name: Install the 'Development tools' package group
+  ansible.builtin.dnf:
+    name: '@Development tools'
+    state: present
+  tags: ["python31014"]
+
+- name: Download and extract Python-3.10.14
   ansible.builtin.unarchive:
     src: 'https://www.python.org/ftp/python/3.10.14/Python-3.10.14.tar.xz'
-    dest: '/usr/bin/'
+    dest: /usr/local/bin
     remote_src: yes
+  tags: ["python31014"]
 
-- name: Configure Python 3.10.14
-  ansible.builtin.shell:
-    cmd:  'cd /usr/bin/Python-3.10.14/; ./configure --enable-optimizations'
+- name: Configure Python-3.10.14
+  ansible.builtin.command: './configure --with-openssl=/usr --enable-optimizations'
+  args:
+    chdir: /usr/local/bin/Python-3.10.14
+  tags: ["python31014"]
 
-- name: Install Python 3.10.14 via Make
-  ansible.builtin.shell:
-    cmd: 'cd /usr/bin/Python-3.10.14/; make -j 2 ; nproc ; make altinstall ;'
+- name: Build Python-3.10.14
+  ansible.builtin.command: 'make -j 2'
+  args:
+    chdir: /usr/local/bin/Python-3.10.14
+  tags: ["python31014"]
+
+- name: Install Python-3.10.14
+  ansible.builtin.command: 'make altinstall'
+  args:
+    chdir: /usr/local/bin/Python-3.10.14
+  tags: ["python31014"]
+
+- name: Verify Python3.10.14 and OpenSSL
+  ansible.builtin.command: '/usr/local/bin/python3.10 -c "import ssl; print(ssl.OPENSSL_VERSION)"'
+  register: ssl_verify
+  tags: ["python31014"]
 ...
