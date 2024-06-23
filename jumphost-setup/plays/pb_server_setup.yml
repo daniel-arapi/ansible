@@ -6,10 +6,10 @@
     - '../roles/dnf_package_management'
     - '../roles/dnf_installs'
     - '../roles/gcc_compiler'
+    - '../roles/dnsmasq'
     - '../roles/perfsonar'
     - '../roles/docker'
     - '../roles/python_3.10.14'
-    - '../roles/dnsmasq'
 ...
 
 
