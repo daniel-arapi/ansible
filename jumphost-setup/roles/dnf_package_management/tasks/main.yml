@@ -1,8 +1,9 @@
 ---
-- name: Update DNF
+- name: Update DNF packages
   ansible.builtin.dnf:
     name: '*'
     state: latest
+  tags: ["python31014"]
 
 - name: Enable CRB Repository
   community.general.dnf_config_manager:
