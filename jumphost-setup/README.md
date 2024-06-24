@@ -35,6 +35,6 @@ These roles are called individually from any playbook file located in the `/play
 ## Usage/Examples
 
 ```commandline
-ansible-playbook plays/pb_server_setup.yml -i hosts/hosts.ini -Kk -vv
-ansible-playbook plays/pb_server_setup.yml -i hosts/hosts.ini -Kk -vv --tags "python31014"
+ansible-playbook plays/pb_server_setup.yml -i hosts/hosts.ini -Kk -vvvv
+ansible-playbook plays/pb_server_setup.yml -i hosts/hosts.ini -Kk -vvvv --tags "python31014"
 ```
