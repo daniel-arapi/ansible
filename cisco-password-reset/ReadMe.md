@@ -1,9 +1,9 @@
 
 ### Syntax
-`ansible-playbook -i hosts.ini reset_password.yml --extra-vars "new_password=NEW_PASSWORD_HERE"` -vvvv
+`ansible-playbook -i hosts.ini reset_password.yml --extra-vars "new_password=NEW_PASSWORD_HERE" -vvvv`
 
 ### Example
-`ansible-playbook -i hosts.ini reset_password.yml --extra-vars "new_password=myNewSecurePassword123"` -vvvv
+`ansible-playbook -i hosts.ini reset_password.yml --extra-vars "new_password=myNewSecurePassword123" -vvvv`
 
 ### Additional Info
 For IOS/IOS-XE, secret 0 is used, meaning the password is stored in plain text. You can modify this to use encrypted formats (secret 5 for MD5 or secret 9 for SHA-256).
